@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("coin")) 
         {
             other.gameObject.SetActive(false);
-            Score ++;
+            Score = Score + 1;
             SetScoreText();
             if(Score >= 5) 
             {
