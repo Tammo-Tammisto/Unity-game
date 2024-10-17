@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public GameObject Wall;
     private Rigidbody rb;
     public int Score;
+    public AudioSource source;
+    public AudioClip pickupSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,14 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement=new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        rb.AddForce(movement * speed);
+        if(moveHorizontal>0 || moveVertical>0 || moveHorizontal<0 || moveVertical<0)
+        {
+            rb.AddForce(movement * speed);
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+        }
 
         //Reestart Level
         if(Input.GetKeyDown(KeyCode.R)) 
@@ -42,6 +51,11 @@ public class PlayerController : MonoBehaviour
         {
             Application.Quit();
         }
+        //Stop Player
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,6 +64,7 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             Score = Score + 1;
+            source.PlayOneShot(pickupSound);
             SetScoreText();
             if(Score >= 5) 
             {
