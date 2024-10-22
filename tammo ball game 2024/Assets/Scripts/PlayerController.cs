@@ -31,14 +31,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement=new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        if(moveHorizontal>0 || moveVertical>0 || moveHorizontal<0 || moveVertical<0)
-        {
-            rb.AddForce(movement * speed);
-        }
-        else
-        {
-            rb.velocity = Vector3.zero;
-        }
+        rb.AddForce(movement * speed);
 
         //Reestart Level
         if(Input.GetKeyDown(KeyCode.R)) 
@@ -52,7 +45,7 @@ public class PlayerController : MonoBehaviour
             Application.Quit();
         }
         //Stop Player
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space))
         {
             rb.velocity = Vector3.zero;
         }
