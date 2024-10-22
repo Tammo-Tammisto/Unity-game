@@ -49,6 +49,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
         }
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            rb.velocity = rb.velocity * 2;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
