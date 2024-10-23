@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public int Score;
     public AudioSource source;
     public AudioClip pickupSound;
+    public float SprintSpeed = 0.6f;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement=new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        rb.AddForce(movement * speed);
+        
 
         //Reestart Level
         if(Input.GetKeyDown(KeyCode.R)) 
@@ -49,9 +50,12 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
         }
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if(Input.GetKey(KeyCode.LeftShift))
         {
-            rb.velocity = rb.velocity * 2;
+            rb.AddForce(movement * SprintSpeed);
+        }
+        else{
+            rb.AddForce(movement * speed);
         }
     }
 
