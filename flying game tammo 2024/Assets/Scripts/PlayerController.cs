@@ -34,6 +34,26 @@ public class PlayerController : MonoBehaviour
         float pitch = Mathf.Lerp(0,90,Mathf.Abs(verticalInput))*Mathf.Sign(verticalInput);
         float roll = Mathf.Lerp(0,20,Mathf.Abs(horizontalInput))*-Mathf.Sign(horizontalInput);
 
-        transform.localRotation = Quaternion.Euler(Vector3.up*Yaw+Vector3.forward*roll);
+        transform.localRotation = Quaternion.Euler(Vector3.up*Yaw+Vector3.right*pitch+Vector3.forward*roll);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "waypoint")
+        {
+            Destroy(other.gameObject, 0.1f);
+            Waypoint.Play();
+            Score++;
+            ScoreText.text = "Score: " + Score;
+            if(Score == 5)
+            {
+                Application.LoadLevel("level2");
+            }
+        }
+        
+        if(other.gameObject.tag == "danger")
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
     }
 }
