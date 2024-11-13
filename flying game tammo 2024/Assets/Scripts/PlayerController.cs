@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,7 +19,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Score = 0;
-        ScoreText.GetComponent<Text>();
         ScoreText.text = "Score: " + Score;
     }
 
@@ -44,10 +44,10 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject, 0.1f);
             Waypoint.Play();
             Score++;
-            ScoreText.text = "Score: " + Score;
+            ScoreText.text = "Score: " + Score.ToString();
             if(Score == 5)
             {
-                Application.LoadLevel("level2");
+                Application.LoadLevel("WinLevelScene");
             }
         }
         
